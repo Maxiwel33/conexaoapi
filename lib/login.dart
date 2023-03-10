@@ -93,7 +93,7 @@ class _LoginState extends State<Login> {
                     child: TextFormField(
                       obscureText: true,
                       validator: (password) {
-                        if (password.isEmpty || password.length < 6)
+                        if (password!.isEmpty || password!.length < 6)
                           return 'Senha Inavalida';
                         return null;
                       },
