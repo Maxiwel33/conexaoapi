@@ -4,16 +4,16 @@ import 'package:conexaoapi/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Clientes extends StatefulWidget {
+  const Clientes({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Clientes> createState() => _ClientesState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ClientesState extends State<Clientes> {
   Future<List> pegaUsuarios() async {
-    var url = Uri.parse("http://192.168.100.13/conexao/GetProd.php");
+    var url = Uri.parse("http://192.168.1.12/conexao/GetCliente.php");
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.abc_outlined),
           ),
         ],
-        title: const Text('Page Itamar -'),
+        title: const Text('Page Clientes -'),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -49,27 +49,19 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: () {
-                print('cliquei no adicionar');
-              },
+              onPressed: () {},
               icon: const Icon(Icons.add),
             ),
             IconButton(
-              onPressed: () {
-                print('cliquei no cancela');
-              },
+              onPressed: () {},
               icon: const Icon(Icons.cancel),
             ),
             IconButton(
-              onPressed: () {
-                print('cliquei no alterar');
-              },
+              onPressed: () {},
               icon: const Icon(Icons.update),
             ),
             IconButton(
-              onPressed: () {
-                print('cliquei no apagar');
-              },
+              onPressed: () {},
               icon: const Icon(Icons.delete),
             ),
           ],
@@ -87,13 +79,14 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
+                  var usuarios = (snapshot.data![index]);
                   return ListTile(
                     leading: const CircleAvatar(
                       backgroundColor: Colors.amber,
                     ),
-                    title: Text(snapshot.data![index]['descricao']),
-                    subtitle: Text(snapshot.data![index]['preco']),
-                    trailing: Text(snapshot.data![index]['quant']),
+                    title: Text(usuarios['nome']),
+                    subtitle: Text(usuarios['email']),
+                    trailing: Text(usuarios['empresa']),
                   );
                 });
           }
